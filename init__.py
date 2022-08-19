@@ -19,6 +19,16 @@ print(statsmodels.__version__)
 if(matplotlib.__version__ !='3.4.3'):
   !pip install matplotlib==3.4.3
   !pip install --upgrade statsmodels
+  
+import requests
+
+url = 'https://raw.githubusercontent.com/RobinBenoot2/DataScience-AI/main/theorie.py?token=GHSAT0AAAAAABXZ2DPRY7NBMIURVGO2ZLKGYX7MSBA'
+r = requests.get(url)
+
+with open('theorie.py', 'w') as f:
+  f.write(r.text)
+
+import theorie as th
 
 # --------------------------H 1 - 2 --------------------------
 def printCommands():
