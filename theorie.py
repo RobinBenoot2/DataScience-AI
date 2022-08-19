@@ -62,12 +62,31 @@ Sampling error  <=>     Non-Sampling error
         c. Respondents lie
 ''')
 
+samenvatting[2] = (
+'''
+    
+'''
+)
+
 
 def help():
-    commands = {'printTheorie()','printH1'}
+    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
 
     for i in commands:
         print(i)
+
+def overzichtHs():
+    print(
+'''
+H1 = Basisbegrippen, steekproefonderzoek
+H2 = Analyse van 1 variabele
+H3 = De centrale limietstelling, betrouwbaarheidsintervallen, hypothesetoetsen
+H4 = Analyse van 2 kwalitatieve variabelen
+H5 = Analyse van kwalitatieve vs kwantitatieve variabele
+H6 = Analyse van 2 kwantitatieve variabelen
+H7 = Tijdserie-analyse
+'''
+    )
 
 def searchString(str):
     for index, s in enumerate(samenvatting):
@@ -81,4 +100,4 @@ def printTheorie():
 
 def printH1():
     
-    print(samenvatting[0])
+    print(samenvatting[1])
