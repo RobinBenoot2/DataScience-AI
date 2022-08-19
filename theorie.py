@@ -1,8 +1,8 @@
 import array as ar
 
-samenvatting = [""]*7
+samenvatting = [""]*8
 
-samenvatting[0] = (
+samenvatting[1] = (
 '''
 Variable = general propery of an object, allows to distinguish objects
 Value = specific propery, interpretation for that variable
@@ -70,9 +70,9 @@ def help():
         print(i)
 
 def searchString(str):
-    for s in samenvatting:
+    for index, s in enumerate(samenvatting):
         if str in s:
-            print("H1")
+            print(f"H{index}")
 
 def printTheorie():
     printH1()
