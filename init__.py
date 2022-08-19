@@ -12,6 +12,7 @@ from scipy.stats.contingency import association
 from matplotlib import cm
 from sklearn.linear_model import LinearRegression
 import sys
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 import matplotlib
@@ -213,10 +214,10 @@ def confidenceIntervals(n, m, s, percentage, populationStdKnown):
     # We then find the  z  score between which 95% of all values lie with a standard normal distribution.
     if n > 29 and populationStdKnown:
         res = stats.norm.isf(alpha / 2)
-        print("z-score: %.5f" % res)
+        print("z-score: %.3f" % res)
     else: # t-test when std (or var) of population is unknown or sample size < 30
         res = stats.t.isf(alpha / 2, df=n - 1)
-        print("t-score: %.5f" % res)
+        print("t-score: %.3f" % res)
     # We use this to determine the values to the left and right of the sample mean
     # between which we expect 95% of the values to fall for the probability distribution
     # that we get from the central limit theorem.
@@ -267,8 +268,8 @@ def zTest(h0, h1, n, sm, s, alpha, m0):
         print('Using left tailed t-test')
         p = stats.t.cdf(sm, loc=m0, scale=s/np.sqrt(n), df=n-1)
         g = stats.t.isf(1 - alpha, loc=m0, scale=s/np.sqrt(n), df=n-1)
-    print("p-value: %.5f" % p)
-    print("Critical value g ≃ %.5f" % g)
+    print("p-value: %.3f" % p)
+    print("Critical value g ≃ %.3f" % g)
     if p < alpha:
         print("p < a: reject H0")
         print('The probability value is smaller than the significance level, so we can reject the null hypothesis.')
@@ -314,7 +315,7 @@ def plot(m, s, sm, g):
 
 def cramersV(table):
     val = association(table, method="cramer")
-    print('Cramers v: %.4f' % val)
+    print('Cramers v: %.3f' % val)
     if val < 0.1:
         return 'no association'
     elif val < 0.3:
@@ -336,10 +337,10 @@ def cramersV(table):
 # In other words, for both women and men, the same percentage of respondents will give the same answer to the question.
 def qualitativeIndependence(observed):
     chi2, p, df, expected = stats.chi2_contingency(observed)
-    print('Chi-squared : %.4f' % chi2)
+    print('Chi-squared : %.3f' % chi2)
     print('Degrees of freedom: %d' % df)
-    print('the number q for which the right tail probability is exactly 5 percent: %.4f' % stats.chi2.isf(0.05, df))
-    print('P-value : %.4f' % p)
+    print('the number q for which the right tail probability is exactly 5 percent: %.3f' % stats.chi2.isf(0.05, df))
+    print('P-value : %.3f' % p)
     print('Cramers v: %s' % cramersV(observed))
 
 
@@ -354,12 +355,12 @@ def goodnessOfFitTest(arr_observed, arr_expected):
     g = stats.chi2.isf(alpha, df=dof)  # Critical value
     # Goodness-of-fit-test in Python:
     chi2, p = stats.chisquare(f_obs=arr_observed, f_exp=expected)
-    print("Significance level  ⍺ = %.2f" % alpha)
+    print("Significance level  ⍺ = %.3f" % alpha)
     print("Sample size         n = %d" % n)
     print("k = %d; df = %d" % (k, dof))
-    print("Chi-squared        χ² = %.4f" % chi2)
-    print("Critical value      g = %.4f" % g)
-    print("p-value             p = %.4f" % p)
+    print("Chi-squared        χ² = %.3f" % chi2)
+    print("Critical value      g = %.3f" % g)
+    print("p-value             p = %.3f" % p)
 
 
 # -------------------------- Module 5 - Bivariate analysis: qualitative vs quantitative --------------------------
@@ -380,7 +381,7 @@ def cohen_d(a, b):
     pooled_sd = np.sqrt(((na-1) * a.std(ddof=1)**2 +
                           (nb-1) * b.std(ddof=1)**2) / (na + nb - 2) )
     res = (b.mean() - a.mean()) / pooled_sd
-    print('Cohen_d: %.4f' % res)
+    print('Cohen_d: %.3f' % res)
     var = math.fabs(res)
     if var < 0.05:
         return 'Very small'
@@ -422,7 +423,7 @@ def linearRegression(colA, colB):
     x = colA.values.reshape(-1, 1)
     y = colB
     weight_model = LinearRegression().fit(x, y)
-    print(f"Regression line: ŷ = {weight_model.intercept_:.2f} + {weight_model.coef_[0]:.2f} x")
+    print(f"Regression line: ŷ = {weight_model.intercept_:.3f} + {weight_model.coef_[0]:.3f} x")
     sns.regplot(x=colA, y=colB)
     return weight_model
 
@@ -446,3 +447,15 @@ def correlationCoefficient(colA, colB):
     else:
         print('Exceptionally strong linear relation between the two variables')
 
+def movingAverage(df, col, val):
+    df[col + '_' + str(val)] = df[col].rolling(val).mean()
+    df.plot( y=[col, col + '_' + str(val)], figsize=[10,5])
+
+
+def holtWinters(source, col, range):
+    train = source['col'][:range]
+    test = source['col'][range:]
+    model = ExponentialSmoothing(train, trend='add', seasonal='mul', seasonal_periods=12, freq='MS').fit()
+    train.plot(legend=True, label='train')
+    test.plot(legend=True, label='test')
+    model.fittedvalues.plot(legend=True, label='fitted')
