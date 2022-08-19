@@ -12,7 +12,7 @@ def printTheorie():
 #-------H1------
 
 def printH1():
-    print(f'''Variable = general propery of an object, allows to distinguish objects
+    print('''Variable = general propery of an object, allows to distinguish objects
 Value = specific propery, interpretation for that variable
 {\u0332".join("Measurement Levels")}
 
