@@ -81,4 +81,4 @@ def printTheorie():
 
 def printH1():
     
-    print(H1tekst)
+    print(samenvatting[0])
