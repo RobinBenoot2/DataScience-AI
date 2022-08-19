@@ -18,6 +18,7 @@ Value = specific propery, interpretation for that variable
 
 Qualtitative = Limited number of values, not necessarily numeric (bv: small, medium, large)
 Quantitative = Many values, often unique. Number + unit of measurement (often contain result of measurement)
+test
     ''')
 
 
