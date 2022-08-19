@@ -210,7 +210,25 @@ CONTINUOUS PROBABILITY DISTRIBUTION (pdf p43)
 *   Exponential Distribution
 *   continuous Uniform Distribution
 
-Expectation and Variance
+Standard Normal distribution (pdf p47)
+
+Python functions
+----------------
+
+|----------------------------------|--------------------------------------|
+|   Function                       |   Purpose                            |
+|----------------------------------|--------------------------------------|
+|   norm.pdf(x, loc=m, scale=s)    |   Probability density at x           |
+|----------------------------------|--------------------------------------|
+|   norm.cdf(x, loc=m, scale=s)    |   Left-tail probability P(X < x)     |
+|----------------------------------|--------------------------------------|
+|   Quantitative                   |   Right-tail probability P(X < x)    |
+|----------------------------------|--------------------------------------|
+|   Quantitative                   |   p\% of observations are expected   |
+|                                  |   to be lower than result            |
+|----------------------------------|--------------------------------------|
+
+
 
 '''
 
