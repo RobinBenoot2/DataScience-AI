@@ -1,6 +1,8 @@
 import array as ar
 
-H1tekst = (
+samenvatting = ar.array()
+
+samenvatting.append(
 '''
 Variable = general propery of an object, allows to distinguish objects
 Value = specific propery, interpretation for that variable
@@ -60,7 +62,6 @@ Sampling error  <=>     Non-Sampling error
         c. Respondents lie
 ''')
 
-samenvatting = ar.array(H1tekst)
 
 def help():
     commands = {'printTheorie()','printH1'}
