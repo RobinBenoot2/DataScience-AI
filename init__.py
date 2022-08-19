@@ -11,6 +11,8 @@ import math
 from scipy.stats.contingency import association
 from matplotlib import cm
 from sklearn.linear_model import LinearRegression
+import sys
+
 
 import matplotlib
 import statsmodels
@@ -20,14 +22,11 @@ if(matplotlib.__version__ !='3.4.3'):
   !pip install matplotlib==3.4.3
   !pip install --upgrade statsmodels
   
-import requests
+!if cd DataScience-AI; then git pull; else git clone 'https://github.com/RobinBenoot2/DataScience-AI.git'; fi
 
-url = 'https://raw.githubusercontent.com/RobinBenoot2/DataScience-AI/main/theorie.py?token=GHSAT0AAAAAABXZ2DPRY7NBMIURVGO2ZLKGYX7MSBA'
-r = requests.get(url)
+path_m = 'DataScience-AI'
 
-with open('theorie.py', 'w') as f:
-  f.write(r.text)
-
+sys.path.insert(0,path_m)
 import theorie as th
 
 # --------------------------H 1 - 2 --------------------------
