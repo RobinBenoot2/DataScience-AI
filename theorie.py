@@ -1,8 +1,8 @@
 import array as ar
 
-samenvatting = ar.array()
+samenvatting = [""]*7
 
-samenvatting.append(
+samenvatting[0] = (
 '''
 Variable = general propery of an object, allows to distinguish objects
 Value = specific propery, interpretation for that variable
