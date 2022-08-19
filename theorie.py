@@ -91,6 +91,69 @@ Quartiles (pdf p14)
 -------------------
 The quartiles of a sorted set of numbers are the three values that divide the set into 4 equally large subsets. Q1, Q2 and Q3
 
+calculating:
+    1. Sort the values:
+        *When n is odd:
+         Median (Q2) is the middle value
+         Leave out the median, Q1 is the median of the first half, Q3 is the median of the second half
+        
+        *When n is even
+         Median (Q2) is the average of the two middle values
+         Q1 is the median of the first half, Q3 is the median of the second half
+         two middle values that form Q2 are included in the dataset for calculating Q1 and Q3
+
+Variance and standard deviation (pdf p16)
+*****************************************
+Variance
+--------
+= the mean squared difference between the values of a data set and the arithmetic mean
+
+Standard deviation
+------------------
+= the square root of the variance
+
+***NOTE***
+Providing center value (e.g. mean, median,...) is never sufficient. (What is the dispersion?)
+
+*********************************************************************************
+*************************************SUMMARY*************************************
+*********************************************************************************
+|-----------------------|------------------|------------------------------------|
+|   Measurement Level   |   Center         |   Spread Distribution              |
+|-----------------------|------------------|------------------------------------|
+|   Qualtitative        |   Mode           |   /                                |
+|-----------------------|------------------|------------------------------------|
+|   Quantitative        |   Average/Mean   |    Variance, Standard Deviation    |
+|                       |   Median         |    Range, Interquartile Range      |
+|-----------------------|------------------|------------------------------------|
+
+Summary of Symbols (population vs sample) => pdf p26
+
+Data Visualisation
+*******************
+
+Chart type overview:
+--------------------
+|-----------------------|------------------|
+|   Measurement Level   |   Chart Type     |
+|-----------------------|------------------|
+|   Qualtitative        |   Bar chart      |
+|-----------------------|------------------|
+|   Quantitative        |   Boxplot        |
+|                       |   Histogram      |
+|                       |   Density plot   |
+|-----------------------|------------------|
+
+Avoid using a Pie chart; comparing angles is harder than comparing length
+
+Interpretation of charts, tips:
+1. Label the axes
+2. Add a clear title
+3. Name the unit
+4. Add a label that clarifies the chart
+
+Anscombe's Quartet (pdf p35):
+= four completely different datasets with the same measurements of central tendency and dispersion
 
 '''
 )
