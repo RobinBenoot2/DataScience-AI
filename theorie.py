@@ -65,7 +65,33 @@ Sampling error  <=>     Non-Sampling error
 
 samenvatting[2] = (
 '''
-    
+Measure of Central Tendency: (what value is representative of the entire group?)
+****************************
+Mean or average (pdf p7)
+------------------------
+Arithmitic mean = the arithmetic mean is the sum of all values divided by the number of values
+
+Mediaan (pdf p9)
+----------------
+= sort all values and pick the middle number
+IF even number of values: average of the middle two
+
+Mode (pdf p11)
+--------------
+= the value that appears most often in a dataset
+
+Measure of Dispersion: (How large are the differences within the group?)
+**********************
+
+Range (pdf p13)
+----------------
+= absolute value of the difference between the highest and the lowest value
+
+Quartiles (pdf p14)
+-------------------
+The quartiles of a sorted set of numbers are the three values that divide the set into 4 equally large subsets. Q1, Q2 and Q3
+
+
 '''
 )
 
