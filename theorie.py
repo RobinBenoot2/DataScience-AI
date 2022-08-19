@@ -1,4 +1,5 @@
 import array as ar
+from enum import EnumMeta
 
 samenvatting = [""]*8
 
@@ -94,10 +95,15 @@ def searchString(str):
             print(f"H{index}")
 
 def printTheorie():
-    printH1()
+    for index, s in enumerate(samenvatting):
+        print(f'Hoofdstuk {index}:\n{s}')
 
 #-------H1------
 
 def printH1():
     
     print(samenvatting[1])
+
+def printH2():
+    
+    print(samenvatting[2])
