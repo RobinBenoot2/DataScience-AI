@@ -12,7 +12,7 @@ from scipy.stats.contingency import association
 from matplotlib import cm
 from sklearn.linear_model import LinearRegression
 
-
+# --------------------------H 1 - 2 --------------------------
 def printCommands():
     commands = ('set index: df.set_index([id])',
                 'Drop column: df.drop("column name", axis="columns")',
@@ -119,6 +119,9 @@ def groupByExample():
     df2 = ap.groupby(['DataSize', 'PersistenceType'])['Time'].describe()[cols]''')
 
 
+# -------------------------- H2 --------------------------
+
+
 def standardNormalDist():
     # Take 200 values for the X-axis, between -4 and 4, evenly spaced
     x = np.linspace(-4, +4, num=201)
@@ -131,6 +134,13 @@ def normalDist(m, s):
     x = np.linspace(m - 4 * s, m + 4 * s, num=201)
     plt.plot(x, stats.norm.pdf(x, loc=m, scale=s))
 
+# -------------------------- Module 3 - The Central Limit Theorem --------------------------
+# Denk aan een sample nemen in een fabrieksomgeving om het bvb het gewicht in te schatten per confituurpot
+# 1. Formulate both hypotheses (𝐻0 and 𝐻1)
+# 2. Determine the significance level (𝛼)
+# 3. Calculate the test statistic
+# 4. Determine the critical region or the probability value
+# 5. Draw conclusions
 
 def leftAndRightTailedProbability(val, m, s):
     cdf = stats.norm.cdf(val, loc=m, scale=s)
@@ -197,6 +207,13 @@ def confidenceIntervals(n, m, s, percentage, populationStdKnown):
     print("The region of values supporting the null hypothesis = Confidence interval: [%.3f, %.3f]" % (lo, hi))
     # X-values
     twoTailedProbability(hi, lo, m, s)
+
+
+# -------------------------- Module 4: Bivariate analysis - 2 qualitative variables --------------------------
+# Chi-squared ( χ2 ) and Cramér's V:
+# are statistics that can help us to determine whether there is an association between two qualitative (categorical) variables.
+# The chi-squared test for independence :
+# To answer the question of when the value of chi-square is sufficient to assume an association between two variables, we can use the chi-square independence test.
 
 
 def convertPopulationStdToSampleStd(populationStd, sampleSize):
@@ -309,6 +326,7 @@ def qualitativeIndependence(observed):
 
 
 # is this sample representative of the population? Does each type occur in the sample in proportion to the expected percentage in the population as a whole?
+# komt de sample overeen met de theoretisch te verwachten waarde
 def goodnessOfFitTest(arr_observed, arr_expected):
     alpha = 0.05               # Significance level
     n = sum(arr_observed)          # Sample size
@@ -324,6 +342,13 @@ def goodnessOfFitTest(arr_observed, arr_expected):
     print("Chi-squared        χ² = %.4f" % chi2)
     print("Critical value      g = %.4f" % g)
     print("p-value             p = %.4f" % p)
+
+
+# -------------------------- Module 5 - Bivariate analysis: qualitative vs quantitative --------------------------
+# In this module, we discuss the case where the independent variable is qualitative and the dependent is quantitative. Some typical examples of research question in this case:
+# Within a certain species of animals, are male individuals significantly larger than females?
+# Does a new vaccine protect against the disease like it's supposed to?
+# Does a certain study method like "retrieval practice" actually improve learning outcomes (i.e. student's grades)?
 
 
 #Effect size
@@ -367,8 +392,11 @@ def independent_Ttest(a, b):
 # In this variant of the  t -test, a measurement is taken on each element of the sample, one time before and one time after an intervention.
 # The aim is to determine whether the intervention had a significant effect on the measurement.
 def dependent_Ttest(a, b):
-    print(stats.ttest_rel(a, b, alternative='less'))
+    print(stats.ttest_rel(a, b, alternative='less'))    # kan ook alt: 'more' of two-sided' zijn!
     return stats.ttest_rel(a, b, alternative='less')
+
+
+# -------------------------- Module 6. Bivariate analysis of 2 quantitative variables --------------------------
 
 
 #params: two columns
