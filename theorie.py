@@ -1,18 +1,6 @@
-import pandas as pd
+import array as ar
 
-def help():
-    commands = {'printTheorie()','printH1'}
-
-    for i in commands:
-        print(i)
-
-def printTheorie():
-    printH1()
-
-#-------H1------
-
-def printH1():
-    H1tekst = (
+H1tekst = (
 '''
 Variable = general propery of an object, allows to distinguish objects
 Value = specific propery, interpretation for that variable
@@ -71,6 +59,25 @@ Sampling error  <=>     Non-Sampling error
         b. Value can be influenced by the fact that you measure
         c. Respondents lie
 ''')
+
+samenvatting = ar.array(H1tekst)
+
+def help():
+    commands = {'printTheorie()','printH1'}
+
+    for i in commands:
+        print(i)
+
+def searchString(str):
+    for s in samenvatting:
+        if str in s:
+            print("H1")
+
+def printTheorie():
+    printH1()
+
+#-------H1------
+
+def printH1():
+    
     print(H1tekst)
-
-
