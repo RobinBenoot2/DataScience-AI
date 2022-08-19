@@ -28,6 +28,7 @@ path_m = 'DataScience-AI'
 
 sys.path.insert(0,path_m)
 import theorie as th
+importlib.reload(theorie)
 
 # --------------------------H 1 - 2 --------------------------
 def printCommands():
