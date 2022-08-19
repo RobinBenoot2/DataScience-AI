@@ -12,6 +12,14 @@ from scipy.stats.contingency import association
 from matplotlib import cm
 from sklearn.linear_model import LinearRegression
 
+import matplotlib
+import statsmodels
+print(matplotlib.__version__)
+print(statsmodels.__version__)
+if(matplotlib.__version__ !='3.4.3'):
+  !pip install matplotlib==3.4.3
+  !pip install --upgrade statsmodels
+
 # --------------------------H 1 - 2 --------------------------
 def printCommands():
     commands = ('set index: df.set_index([id])',
