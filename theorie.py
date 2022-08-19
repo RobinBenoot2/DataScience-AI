@@ -158,6 +158,63 @@ Anscombe's Quartet (pdf p35):
 '''
 )
 
+samenvatting[3] = (
+
+'''
+Probability Distribution of a Sample
+************************************
+
+Probabilities represent beliefs of how likely it is that a certain event wil happen when performing a certain experiment
+
+Observations:
+    *Probabilties are numbers assigned to sets
+    *These sets are part of some ALL-ENCOMPASSING set = the UNIVERSE (denoted greek capital omega)
+
+Axioms of Probability
+---------------------
+
+1.  Probabilities are non-negative: P(A)>=0 for each A 
+2.  The universe has probability 1: P(OMEGA) = 1
+3.  When A and B are disjoint events (i.e. A intersect B = 0)
+    => P(A union B) = P(A) + P(B)
+    => SUM RULE
+
+Properties of Probabilities
+---------------------------
+= derived from the three axioms of probability
+
+1. COMPLEMENT RULE: for each A it holds that
+        P(/A) = 1 - P(A)
+2. The impossible event has probability zero: P(0) = 0
+3. GENERAL SUM RULE: P(A union B) = P(A) + P(B) - P(A intersect B)
+
+Independent events = the occurence of one event (or knowing that the event occurred) does not change the probability of the other event occurring
+=> A and B are independent when: P(A intersect B) = P(A)P(B)
+
+Random Variable => Probability Distribution Function
+
+Expectation of a random variable (pdf p37)
+
+Variance of a random variable (pdf p39)
+
+Continuous Random Variable (pdf p41)
+************************************
+
+=> takes on an uncountably infinite number of possible values
+so the probability that X equals to some A exactly is not useful, because this is always zero
+=> probability that X takes on a value in some interval [a,b]
+=> this can be found by integrating the probability density function of the random variable
+
+CONTINUOUS PROBABILITY DISTRIBUTION (pdf p43)
+*   Normal Distribution
+*   Exponential Distribution
+*   continuous Uniform Distribution
+
+Expectation and Variance
+
+'''
+
+)
 
 def help():
     commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
