@@ -13,9 +13,9 @@ def printTheorie():
 
 def printH1():
     print('Variable = general propery of an object, allows to distinguish objects')
-    print('Value = specific propery, interpretation for that variable')
+    print('Value = specific propery, interpretation for that variable\n\n')
 
-    print("\u0332".join("Measurement Levels\n\n"))
+    print("\u0332".join("Measurement Levels"))
 
     print('Qualtitative = Limited number of values, not necessarily numeric (bv: small, medium, large)')
     print('Quantitative = Many values, often unique. Number + unit of measurement (often contain result of measurement')
