@@ -215,6 +215,9 @@ Standard Normal distribution (pdf p47)
 Python functions
 ----------------
 
+import scipy.stats
+
+For normal distribution with mean m and standard deviation s: (TIP: draw Gauss curve to visual this)
 |----------------------------------|--------------------------------------|
 |   Function                       |   Purpose                            |
 |----------------------------------|--------------------------------------|
@@ -222,11 +225,79 @@ Python functions
 |----------------------------------|--------------------------------------|
 |   norm.cdf(x, loc=m, scale=s)    |   Left-tail probability P(X < x)     |
 |----------------------------------|--------------------------------------|
-|   Quantitative                   |   Right-tail probability P(X < x)    |
+|   norm.sf(x, loc=m, scale=s)     |   Right-tail probability P(X < x)    |
 |----------------------------------|--------------------------------------|
-|   Quantitative                   |   p\% of observations are expected   |
+|   norm.isf(1-p, loc=m, scale=s)  |   p% of observations are expected    |
 |                                  |   to be lower than result            |
 |----------------------------------|--------------------------------------|
+
+Exponentional Distribution (pdf p58): values for an exponential random variable occur when there are fewer large values and more small values
+
+Continuous Uniform Distribution (pdf p60): the density function is constant where every value has an equal chance of occurring
+
+The Central Limit Theorem (pdf p63)
+***********************************
+=> if the size of the sample is sufficiently large, the probability distribution of the sample mean will approximate a normal distribution, regardless of the probability distribution of the underlying population
+
+Consider:
+    *Population with expected value µ and standard deviation sigma
+    *random sample of n observations
+
+=> probability distribution of the sample mean (_x) will approximate a normal distribution with:
+    *mean µ_x = µ
+    *standard deviation sigma_x = sigma/sqrt(n)
+
+NOTE: the larger the sample, the better the probability distribution of _x will approximate the expected value of the population, µ
+
+Point Estimate
+--------------
+A point estimate for a population parameter is a formula or equation that allows us to calculate a value to estimate that parameter
+
+Confidence Interval
+-------------------
+A confidence interval is an equation or formula that allows us to construct an interval that will contain the parameter to be estimated with a certain level of confidence
+
+    ***Large Sample*** (pdf p67)
+    ------------------
+    Give a sample with mean _x
+    => looking for interval = [_x - b, _x + b] for which we can say with a level of confidence (1 - alpha) of e.g. 95% that µ is inside this interval
+
+    P(_x - b < µ < _x + b) = 1 - alpha = 0.95
+
+    calculate the z-score for _x: z= (_x - µ) /(sigma / sqrt(n))
+
+    calculate z_alpha/2 for which: P(-z_alpha/2 < z < z_alpha/2) = 1 - alpha = 0.95 (=> alpha = 1-0.95 = 0.05 => alpha/2 = 0.05/2 = 0.025)
+    => P(z < z_aplha/2) = 1 - alpha/2 = 0.975
+
+    z_alpha/2 = stats.norm.isf(1-0.975) = +-1.96
+
+    ***Small Sample*** (pdf p71)
+    ------------------
+    != central limit theorem no longer valid
+
+    If population X has a normal distribution (X ~ Nor(µ, sigma)) and you take a small sample with mean _x and standard deviation s, then:
+
+    t = (_x - µ) / (sigma / sqrt(n))
+
+    t_alpha/2 = t variant of the z_alpha/2, so same calculation method, but df must be added (n-1) = stats.t.isf(1-0.975, df=4)
+
+    will behave as a t-distribution with n - 1 degrees of freedom (df)
+
+    import scipy.stats
+
+    For a t-distribution with df degrees: 
+    |------------------------|--------------------------------------|
+    |   Function             |   Purpose                            |
+    |------------------------|--------------------------------------|
+    |   t.pdf(x, df=d)       |   Probability density at x           |
+    |------------------------|--------------------------------------|
+    |   t.cdf(x, df=d)       |   Left-tail probability P(X < x)     |
+    |------------------------|--------------------------------------|
+    |   t.sf(x, df=d)        |   Right-tail probability P(X < x)    |
+    |------------------------|--------------------------------------|
+    |   t.isf(1-p, df=d)     |   p% of observations are expected    |
+    |                        |   to be lower than result            |
+    |------------------------|--------------------------------------|
 
 
 
