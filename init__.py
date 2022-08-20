@@ -167,36 +167,43 @@ def leftAndRightTailedProbability(val, m, s):
     isf = stats.norm.isf((1 - .8), loc=m, scale=s)
     # In Python, you can use the SciPy-function norm.cdf()
     # to calculate the left tail probability  P(X<x)  or  P(Z<z)  (also called the cumulative distribution).
-    print(f"left tail cdf: {cdf}")
+    print(f"left tail cdf: {cdf:.3f}")
     # In order to calculate the right tail probability, we use the norm.sf() function
     # (defined as 1 - cdf, also called the survival function, hence the function name)
-    print(f"right tail sf: {sf}")
+    print(f"right tail sf: {sf:.3f}")
     # Another type of question: under what value will 80% of observations be?
     # To calculate this we would need the inverse function of cdf().
     # However, it does not exist in SciPy. We do have the inverse function of sf(),
     # though, which is called isf().
     # We can find the result by calculating the reaction time above which 20% of the values lie:
-    print(f"probability for 80% of values: {isf}")
+    print(f"probability for 80% of values: {isf:.3f}")
     twoTailedProbability(cdf, sf, m, s)
     return cdf, sf, isf
 
 
 def twoTailedProbability(high, low, m, s):
+    if high <= 1 and low <= 1:
+        high = stats.norm.isf(high, loc=m, scale=s)
+        low = stats.norm.isf(low, loc=m, scale=s)
+    if high < low :
+        temp = low
+        low = high
+        high = temp
     # In Python, you can use the SciPy-function norm.cdf()
     # to calculate the left tail probability  P(X<x)  or  P(Z<z)  (also called the cumulative distribution).
-    print(f"two tailed cdf: {stats.norm.cdf(high, loc=m, scale=s) - stats.norm.cdf(low, loc=m, scale=s)}")
+    print(f"two tailed cdf: {stats.norm.cdf(high, loc=m, scale=s) - stats.norm.cdf(low, loc=m, scale=s):.3f}")
     # X-values
     dist_x = np.linspace(m - 4 * s, m + 4 * s, num=201)
     # Y-values for drawing the Gauss curve
     dist_y = stats.norm.pdf(dist_x, m, s)
     # Plot the Gauss-curve
     plt.plot(dist_x, dist_y)
-    plt.plot(dist_x, stats.norm.cdf(dist_x, m, s))
+    #plt.plot(dist_x, stats.norm.cdf(dist_x, m, s))
     # Fill the area left of x
     plt.fill_between(dist_x, 0, dist_y, where=(dist_x <= high) & (dist_x > low), color='lightblue')
     # Show x with a green line
-    plt.axvline(low, color="green")
-    plt.axvline(high, color="green")
+    plt.axvline(stats.norm.isf(low, loc=m, scale=s), color="green")
+    plt.axvline(stats.norm.isf(high, loc=m, scale=s), color="green")
 
 
 def getParams(source, percentage):
@@ -209,7 +216,7 @@ def getParams(source, percentage):
 
 # So we state with a confidence level of 95% that the reaction speed of the superheroes is between 4.37 and 6.03 ms.
 def confidenceIntervals(n, m, s, percentage, populationStdKnown):
-    # n = sample count, m = sample mean, s = population mean
+    # n = sample count, m = sample mean, s = population std of sample std
     alpha = 1 - percentage / 100  # 1 - alpha is the confidence level
     # We then find the  z  score between which 95% of all values lie with a standard normal distribution.
     if n > 29 and populationStdKnown:
