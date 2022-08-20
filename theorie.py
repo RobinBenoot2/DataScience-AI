@@ -299,8 +299,99 @@ A confidence interval is an equation or formula that allows us to construct an i
     |                        |   to be lower than result            |
     |------------------------|--------------------------------------|
 
+Hupothesis testing (2e pdf van H3):
+***********************************
 
+Statistical Hypothesis Testing (pdf2 p5)
+------------------------------
 
+Hypothesis = idea that has yet to be proven: statement regarding numeric value of a population parameter
+Hypothesis Test = verification of a statement about the values of one or multiple population parameters
+Null Hypothesis (H0) = base hypothesis, we start with assuming it is true
+Alternative Hypothesis (H1, Ha) = conclusion if the null hypothesis is unlikely to be true
+
+Elements of a testing procedure (pdf2 p6)
+-------------------------------
+
+Test Statistic = the value that is calculated from the sample
+Region of Acceptance = the region of values SUPPORTING the null hypothesis
+Critical Region / Region of Rejection = the region of values REJECTING the null hypothesis
+Significance Level = the probability of rejecting a true null hypothesis H0
+
+Testing procedure (pdf2 p7)
+-----------------
+1.  Formulate both hypotheses (H0 and H1)
+2.  Determine the significance level (alpha)
+3.  Calculate the test statistic
+4.  Determine the critical region or the probability value
+5.  Draw conclusions
+
+Probability Value (pdf2 p13)
+-----------------
+p-value is the probability, if the null hypothesis is true, to obtain a value for the test statistic that is at least as extreme as the observed value
+
+p-value < alpha => reject H0; the discovered value of _x is too extreme
+p-value >= alpha => do not reject H0; the discovered value of _x can still be explained by coincidence
+
+Cricital Region (pdf2 p16)
+---------------
+= the collection of all values of the test statistic for which we can reject the null hypothesis
+
+Critical value g
+
+|------------------------|----------------------------------------------------------|
+|   Goal                 |   Test regarding the value of the population mean µ      |
+|                        |   using a sample of n independent values                 |
+|------------------------|----------------------------------------------------------|
+|   Prerequisite         |   The population has a random distribution, n is         |
+|                        |   sufficiently large                                     |
+|------------------------|----------------------------------------------------------|
+|   Test Type            |   Two-tailed     |   Left-tailed     |   Right-tailed    |
+|------------------------|----------------------------------------------------------|
+|   H0                   |   µ = µ0             µ = µ0              µ = µ0          |
+|   H1                   |   µ != µ0            µ < µ0              µ > µ0          |
+|   Critical Region      |   |_x| > g           _x < -g             _x > g          |
+|   Test statistic       |   z = (_x - µ0) / (sigma / sqrt(n))                      |
+|------------------------|----------------------------------------------------------|
+Tabel: Summary of Testing Procedures (pdf2 p22)
+
+Requirements for z-test (pdf2 p23)
+-----------------------
+    *   The sample needs to be random
+    *   The sample size needs to be sufficiently large (n>=30)
+    *   The test statistic needs to have a normal distribution
+    *   The standard deviation of the population, sigma, is known
+
+Student's t-test (pdf2 p35)
+----------------
+If requirements for a z-test are not met, e.g.:
+* Sample size too small
+* Population stdev (sigma) unknown
+IF the variable is normally distributed => t-test
+
+T-test (pdf2 p36)
+------
+Determine critical value:
+    g = µ +- t x s / sqrt(n)
+
+    * t-value is derived from the Student's t-distribution, based on the number of degrees of freedom, n-1
+    * Use function t.isf() in Python
+    * Otherwhise same procedure as the z-test
+
+Errors in Hypothesis Tests (pdf2 p38)
+--------------------------
+
+|------------------------|---------------------------------------------------------------------|
+|   Conclusion           |                          Reality                                    |
+|                        |            H0 True                |           H1 True               |
+|------------------------|---------------------------------------------------------------------|
+|   H0  not rejected     |       Correct inference           |  Type II error (false negative) |
+|   H0  rejected         |  Type I error (false positive)    |          Correct inference      |
+|------------------------|---------------------------------------------------------------------|
+
+P(type I error) = alpha (=significance level)
+P(type II error) = beta
+Calculating beta is NOT trivial, but if alpha declining then beta rising
 '''
 
 )
