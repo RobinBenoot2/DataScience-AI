@@ -901,7 +901,7 @@ If square root of MSE is well below standard deviation over all observations, yo
 '''
 )
 def help():
-    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
+    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH(hoofdstuk)'}
 
     for i in commands:
         print(i)
@@ -930,10 +930,7 @@ def printTheorie():
 
 #-------H1------
 
-def printH1():
+def printH(hoofdstuk):
     
-    print(samenvatting[1])
+    print(samenvatting[hoofdstuk])
 
-def printH2():
-    
-    print(samenvatting[2])
