@@ -22,7 +22,6 @@ print(statsmodels.__version__)
 if(matplotlib.__version__ !='3.4.3'):
   !pip install matplotlib==3.4.3
   !pip install --upgrade statsmodels
-  !pip install --upgrade scipy==1.6.0
   
 !if cd DataScience-AI; then git pull; else git clone 'https://github.com/RobinBenoot2/DataScience-AI.git'; fi
 
