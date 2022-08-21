@@ -851,7 +851,7 @@ Forecasting: (pdf p28)
 Forecast for time t + m (m time units in the "future") take always the last estimate of the level:
     F(t + m) = X_t
 
-Double Exponential Smoothing (pdf p29)
+Double Exponential Smoothing (aka Holt-method) (pdf p29)
 ----------------------------
 Basic exponential smoothing does not work well if there is a trend in the data, the errors keep getting bigger
 => add additional term to model the trend: b_t for the estimation of the trend at time t > 1:
