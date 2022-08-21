@@ -682,6 +682,85 @@ Effect size (pdf p28)
 '''
 )
 
+samenvatting[6] = (
+'''
+Bivariate analysis:
+*******************
+QUANTITATIVE - QUANTITATIVE variate:
+------------------------------------
+
+Data Visualization (pdf p6):
+------------------
+Scatter plot:
+* X-axis: independent variable
+* Y-axis: dependent variable
+* Each point corresponds to an observation
+
+Linear Regression (pdf p8)
+-----------------
+With regression we will try to find a CONSISTENT and  SYSTEMATIC relationship between two QUANTITATIVE variables
+1.  Monotonic: consistent direction to the relationship between the two variables: 
+        INCREASING   <=>     DECREASING
+2.  Non-monotonic: value of dependent variable changes systematically with value of independent variable, but the direction is not consistent
+
+=> Linear regression = linear relationship between an independent and dependent variable
+
+Characteristics:
+    * Presence: is there a relationship?
+    * Direction: increasing or decreasing?
+    * Strength of the relationship: strong, moderate, weak, nonexistent,...
+
+Method of least squares (pdf p16)
+
+Covariance: (pdf p19)
+-----------
+= a measure that indicates whether a relationship between two variables is increasing or decreasing
+
+Cov(X, Y) = 1 /(n -1) * sum((x_i - _x)(y_i - _y))
+
+* Cov > 0: increasing
+* Cov +- 0: no relationship
+* Cov < 0: decreasing
+***NOTE: Covariance of population (denominator n) <=> sample (denominator n - 1)***
+
+Pearson's correlation coefficient (pdf p25)
+---------------------------------
+Pearson's product-moment correlation coefficient R is a measure for the strength of a linear correlation between x and y
+
+    Cov(X, Y)
+R = ---------
+    σ_x * σ_y
+
+R ∈ [-1, 1]
+
+Coefficient of determination (pdf p28)
+----------------------------
+= R²: explains the percentage of the variance of the observed values relative to the regression line
+
+R²: percentage variance observations explained by the regression line
+1 - R²: percentage variance observatoins NOT explained by regression
+
+Interpretation of R and R² values (pdf p29)
+---------------------------------
+
+    |---------------|--------------|------------------------|-------------------|
+    |   |R|         |   R²         |    Explained variance  |   Interpretation  |
+    |---------------|--------------|------------------------|-------------------|
+    |   < 0.3       |   < 0.1      |    < 10%               |   very weak       |
+    |   0.3 - 0.5   |   0.1 - 0.25 |    10 - 25%            |   weak            |
+    |   0.5 - 0.7   |   0.25 - 0.5 |    25 - 50%            |   moderate        |
+    |   0.7 - 0.85  |   0.5 - 0.75 |    50 - 75%            |   strong          |
+    |   0.85 - 0.95 |   0.75 - 0.9 |    75 - 90%            |   very strong     |
+    |   > 0.95      |   > 0.9      |    > 90%               |   exceptional(!)  |
+    |---------------|--------------|------------------------|-------------------|
+
+Considerations:
+    * The correlation coefficient only looks at the relationship between two variables. Interactions with other variables are not considered
+    * The correlation coefficient explicitly does not assume a causal relationship
+    * Pearson's correlation coefficient only expresses linear relationships
+'''
+)
+
 def help():
     commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
 
