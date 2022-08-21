@@ -1,7 +1,7 @@
 import array as ar
 from enum import EnumMeta
 
-samenvatting = [""]*8
+samenvatting = [""]*9
 
 samenvatting[1] = (
 '''
@@ -270,8 +270,6 @@ A confidence interval is an equation or formula that allows us to construct an i
     => P(z < z_aplha/2) = 1 - alpha/2 = 0.975
 
     z_alpha/2 = stats.norm.isf(1-0.975) = +-1.96
-    
-    ***In practice we will use s_sample as a point estimate for sigma_population
 
     ***Small Sample*** (pdf p71)
     ------------------
@@ -515,7 +513,7 @@ Function to calculate X² and p-value from a contingency table:
 observed = pd.crosstab(index, columns)
 chi2, p, df, expected = stats.chi2_contingency(observed)
 
-Goodness-of-fit test (also chi-squared test)
+Goodness-of-fit test
 --------------------
 The X² test can also be used to determine whether a sample is representative for the population
 
@@ -902,8 +900,33 @@ Compare forecast results with actual observations, when they become available:
 If square root of MSE is well below standard deviation over all observations, you have a good model!
 '''
 )
+
+samenvatting[8] = (
+'''
+H3:
+* Right or left tailed z-test: (oefening: confituurpotten; controleren van de instelling van de machine correct is)
+  t-test if sample is too small or standard deviation is unknown
+
+H4:
+* Chi²:
+    1. Chi² for independence: (oefening: antwoorden op enquête verschillende voor M als voor V)
+    2. Chi² goodness of fit: (oefening: komt de sample overeen met de theoretisch te verwachten waarde)
+
+H5:
+* two sample t-test
+    1. independent: reactiesnelheid na innemen van medicijn
+    2. paired: benzine met additieven
+
+H6:
+* regressie (flipperlenght ifv body mass) + CoV + R + R²
+
+H7:
+* time series
+'''
+)
+
 def help():
-    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH(hoofdstuk)'}
+    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH(hoofdstuk)','overzichtTs()'}
 
     for i in commands:
         print(i)
@@ -935,4 +958,7 @@ def printTheorie():
 def printH(hoofdstuk):
     
     print(samenvatting[hoofdstuk])
+
+def overzichtTs():
+    print(samenvatting[8])
 
