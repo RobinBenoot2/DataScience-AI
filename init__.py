@@ -343,6 +343,7 @@ def cramersV(table):
 # then we expect the proportions of the values of Survey to be the same for all values of Gender.
 # In other words, for both women and men, the same percentage of respondents will give the same answer to the question.
 def qualitativeIndependence(observed):
+    # observed = pd.crosstab(rlanders.Survey, rlanders.Gender)
     chi2, p, df, expected = stats.chi2_contingency(observed)
     print('Chi-squared : %.3f' % chi2)
     print('Degrees of freedom: %d' % df)
@@ -354,6 +355,9 @@ def qualitativeIndependence(observed):
 # is this sample representative of the population? Does each type occur in the sample in proportion to the expected percentage in the population as a whole?
 # komt de sample overeen met de theoretisch te verwachten waarde
 def goodnessOfFitTest(arr_observed, arr_expected):
+    print('''
+    𝐻0: sample is representative for the population
+    𝐻1: sample is not representative for the population ''')
     alpha = 0.05               # Significance level
     n = sum(arr_observed)          # Sample size
     k = len(arr_observed)          # Number of categories
@@ -368,6 +372,15 @@ def goodnessOfFitTest(arr_observed, arr_expected):
     print("Chi-squared        χ² = %.3f" % chi2)
     print("Critical value      g = %.3f" % g)
     print("p-value             p = %.3f" % p)
+    # Conclusion (the test is always right-tailed):
+    # 2.1 𝜒2 < 𝑔 ⇒ do not reject 𝐻0, 𝜒2 > 𝑔 ⇒ reject 𝐻0
+    # 2.2 𝑝 > 𝛼 ⇒ do not reject 𝐻0, 𝑝 < 𝛼 ⇒ reject 𝐻0
+    if chi2 < g and p < alpha:
+        print(f'Do not reject H0: chi2: {chi2} < g: {g} ')
+        print('This sample is representative for the population.')
+    else:
+        print(f'Reject H0: chi2: {chi2} > g: {g} ')
+        print('This sample is NOT representative for the population.')
 
 
 # -------------------------- Module 5 - Bivariate analysis: qualitative vs quantitative --------------------------
