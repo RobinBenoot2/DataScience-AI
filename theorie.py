@@ -396,6 +396,207 @@ Calculating beta is NOT trivial, but if alpha declining then beta rising
 
 )
 
+samenvatting[4] = (
+'''
+Bivariate analysis:
+*******************
+= determning whether there is an association between two stochastic variables (X and Y)
+
+Association = you can predict (to some extent) the value of Y from the value of X
+    * X = independent variable
+    * Y = Dependent variable
+***IMPORTANT! Finding an association does NOT imply a causal relation!***
+
+Overview (pdf p6):
+|-----------------------|------------------|------------------------------------|
+|   Independent         |   Dependent      |   Test/Metric                      |
+|-----------------------|------------------|------------------------------------|
+|   Qualtitative        |   Qualtitative   |   X²-test                          |
+|                       |                  |   Cramér's V                       |
+|-----------------------|------------------|------------------------------------|
+|   Qualtitative        |   Quantitative   |   two-sample t-test                |
+|                       |                  |   Cohen's d                        |
+|-----------------------|------------------|------------------------------------|
+|   Quantitative        |   Quantitative   |    -                               |
+|                       |                  |    Regression, correlation         |
+|-----------------------|------------------|------------------------------------|
+
+QUALITATIVE - QUALITATIVE variate:
+----------------------------------
+
+Data Visualization (pdf p10):
+------------------
+* Clustered bar chart
+* A mosaic plot
+
+Contingency tables = table in matrix format that displays the (multivariate) frequency distribution of the variables
+Marginal totals = the totals of each value of the variables
+
+Expected values = if there is no difference (so this imply an association), we expect the same ration in each column of the contingency table
+
+measuring dispersion = how far is the observed value o from the expected e:
+=>  (o - e)²
+    --------
+       e
+
+The chi-squared statistic
+-------------------------
+
+The sum of all thes values is notated:
+
+    X² = sum((o_i - e_i)² / e_i)
+
+    * X = Greek letter chi
+    * o_i = number of observations in the i'th cell of the contingency table
+    * e_i = expected frequency
+    * Small value => NO association
+    * Large value => association
+
+Chi-squared value is dependent of the table size
+=> Cramér's V is independent of the table size
+
+    V = sqrt(X² / (n(k - 1)))
+
+    with:
+        * n = the number of observations
+        * k = min(numRow, numCols)
+
+    |------------------------|--------------------------------------|
+    |   Cramér's V           |   Interpretation                     |
+    |------------------------|--------------------------------------|
+    |   +-0                  |   no association                     |
+    |   +-0.1                |   weak association                   |
+    |   +-0.25               |   moderate association               |
+    |   +-0.5                |   strong association                 |
+    |   +-0.75               |   very strong association            |
+    |   +-1                  |   complete association               |
+    |------------------------|--------------------------------------|
+
+Chi-squared test for independence
+----------------------------------
+ = Alternative to Cramér's V to investigate association between qualtitative variables
+
+ Chi-squared distribution in Python
+-----------------------------------
+import scipy.stats
+
+For a X²-distribution with df degrees of freedom:
+
+    |------------------------|--------------------------------------|
+    |   Function             |   Purpose                            |
+    |------------------------|--------------------------------------|
+    |   chi2.pdf(x, df = d)  |   Probability density for x          |
+    |   chi2.cdf(x, df = d)  |   Left-tail probability P(X < x)     |
+    |   chi2.sf(x, df = d)   |   Right-tail probability P(X > x)    |
+    |   chi2.isf(x, df = d)  |   p% of observations is expected     |
+    |                        |   to be lower than this value        |
+    |------------------------|--------------------------------------|
+
+    Test procedure
+    --------------
+    1. Formulate hypotheses:
+        * H0: there is NO association (X² is "small")
+        * H1: there is an association (X² is "large")
+    2. Choose significance level, e.g. alpha = 0.05
+    3. Calculate the test statistic, X²
+    4. Use df = (numRow - 1) x (numCol - 1) and either:
+        * Determine critical value g so P(X² > g) = alpha
+        * Calculate the p-value
+    5. Draw conclusion:
+        * X² < g: do not reject H0  <=>     X² > g: reject H0
+        * p > alpha: do not reject  <=>     p < alpha: reject H0
+
+Test for independence in Python
+-------------------------------
+Function to calculate X² and p-value from a contingency table:
+
+observed = pd.crosstab(index, columns)
+chi2, p, df, expected = stats.chi2_contingency(observed)
+
+Goodness-of-fit test
+--------------------
+The X² test can also be used to determine whether a sample is representative for the population
+
+    X² = sum((o_i - e_i)² / e_i)
+
+Value of X²:
+    * Small     =>  distribution is representative
+    * Large     =>  distribution is NOT representative
+X² measures the degree of conflict with the null hypothesis
+
+* The test statistic X² follows the X² distribution
+* Critical value g from the X² distribution: this is dependent on the number of degrees of freedom (df). In general df = k -1; with k the number of categrories
+* The critical value g for a given significance level alpha and number of degrees of freedom df can be calculated in Python using the function isf()
+    P(X² < g) = 1 - alpha
+
+    Test procedure
+    --------------
+    1. Formulate hypotheses
+        * H0: sample is representative for the population
+        * H1: sample is not representative for the population
+    2. Choose significance level, e.g. alpha = 0.05
+    3. Calculate the test statistic, X²
+        * Critical area: calculate g so that P(X² < g) = 1 - alpha
+        * Probabiltiy value: calculate p = 1 - P(X < X²)
+    4. Conclusion (the test is always right-tailed):
+        * X² < g: do not reject H0  <=>     X² > g: reject H0
+        * p > alpha: do not reject  <=>     p < alpha: reject H0
+
+Goodness-of-fit test in Python (pdf p36)
+------------------------------
+
+observed = np.array(*[OBSERVED VALUES]*)
+expected_p = np.array(*[EXPECTED PERCENTAGES]*)
+expected = expected_p * sum(observed)
+chi2, p = stats.chisquare(f_obs = observed, f_exp = expected)
+
+Standardized Residuals (pdf p44)
+----------------------
+indicate which classes make the greatest contribution to the value of X²
+
+              o_i - n * π_i
+    r_i = -----------------------
+          sqrt(n * π_i (1 - π_i))
+
+* r_i ∈ [-2,2]  => "acceptable" values
+* r_i < -2      => underrepresented
+* r_i > 2       => overrepresented
+
+Cochran's rules (pdf p45)
+---------------
+In order to apply the X²-test, the following conditions must be met (Rule of Cochran)
+    1. For all categories, the expected frequency e must be greater than 1
+    2. In a maximum of 20% of the categories, the expected frequency e may be less than 5
+'''
+)
+
+samenvatting[5] = (
+'''
+Bivariate analysis:
+*******************
+QUALITATIVE - QUALITATIVE variate:
+----------------------------------
+
+Data Visualization (pdf p6):
+------------------
+* Chart types for quantitative data
+* Grouped by qualitative variable
+
+Suitable chart types:
+* Grouped boxplot (pdf p9)
+* Grouped violin plot (pdf p10)
+* Grouped density plot (pdf p11)
+* Bar chart with error bars (only makes sense for normally distributed data) (pdf p14)
+
+Two-sample t-test (pdf p15)
+-----------------
+1. Independent samples
+2. Paired samples
+
+
+'''
+)
+
 def help():
     commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
 
