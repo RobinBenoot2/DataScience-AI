@@ -590,10 +590,95 @@ Suitable chart types:
 
 Two-sample t-test (pdf p15)
 -----------------
-1. Independent samples
-2. Paired samples
+(is the sample mean of two samples significantly differen?)
 
+    1. Independent samples (pdf p17)
+    ----------------------
+        Testing procedure:
+        a.  Hypotheses:
+            * H0: µ1 - µ2 = 0
+            * H1: µ1 - µ2 < 0
+        b.  Significance level: e.g. alpha = 0.05
+        c.  Test statistic:
+            * _x - _y
+            * _x = estimation for µ1 (control group)
+            * _y = estimation for µ2 (intervention group)
+        d.  Calculate p
+        e.  Conclusion by compare p with the significance level alpha
+                p > alpha: do not reject  <=>     p < alpha: reject H0
 
+        Calculation in Python:
+        control = np.array(*[CONTROL VALUES]*)
+        intervention = np.array(*[INTERVENTION VALUES]*)
+        stats.ttest_ind(a=control, b=intervention, alternative='less', equal_var=False)
+
+            Result:
+            Ttest_indResult(statistic= , pvalue= )
+
+    2. Paired samples (pdf p23)
+    -----------------
+        Testing procedure:
+        a.  Hypotheses:
+            * H0: _(x - y) = 0
+            * H1: _(x - y) < 0
+        b.  Significance level: e.g. alpha = 0.05
+        c.  Test statistic:
+            * _(x - y)
+            * x = estimation for µ1 (control group)
+            * y = estimation for µ2 (intervention group)
+        d.  Calculate p
+        e.  Conclusion by compare p with the significance level alpha
+                p > alpha: do not reject  <=>     p < alpha: reject H0
+
+        Calculation in Python:
+        regular = np.array(*[REGULAR VALUES]*)
+        additives = np.array(*[ADDITIVES VALUES]*)
+        stats.ttest_rel(regular, additives, alternative='less')
+
+            Result:
+            Ttest_relResult(statistic= , pvalue= )
+
+Effect size (pdf p28)
+-----------
+= is a metric which expresses how great the difference between two groups is
+
+    * Control group   <=>     intervention group
+    * can be used in addition to hypothesis test
+    * Several definitoins, here => Cohen's d
+
+    Cohen's D: (pdf p29)
+    ----------
+
+        _x1 - _x2
+    d = ---------
+            s
+
+    with:
+        * _x1, _x2, the sample means
+        * s, standard deviation of both groups combined:
+
+                ((n1 - 1) * s1² + (n2 - 1) * s2²)
+        s = sqrt(-------------------------------)
+                (           n1 + n2 - 2         )
+
+        with:
+            * n1, n2, the sample sizes
+            * s1, s2, the standard deviation of both groups
+    
+    Interpretation of Cohen's d: (pdf p30)
+
+    |--------|-----------------|
+    |   |d|  |   Effect Size   |
+    |--------|-----------------|
+    |   0.01 |   Very small    |
+    |   0.2  |   Small         |
+    |   0.5  |   Average       |
+    |   0.8  |   Large         |
+    |   1.2  |   Very Large    |
+    |   2.0  |   Huge          |
+    |--------|-----------------|
+
+    Interpretation for educational sciences, see pdf p30-31
 '''
 )
 
