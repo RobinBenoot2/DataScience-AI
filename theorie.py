@@ -270,6 +270,8 @@ A confidence interval is an equation or formula that allows us to construct an i
     => P(z < z_aplha/2) = 1 - alpha/2 = 0.975
 
     z_alpha/2 = stats.norm.isf(1-0.975) = +-1.96
+    
+    ***In practice we will use s_sample as a point estimate for sigma_population
 
     ***Small Sample*** (pdf p71)
     ------------------
