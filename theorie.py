@@ -1,7 +1,7 @@
 import array as ar
 from enum import EnumMeta
 
-samenvatting = [""]*8
+samenvatting = [""]*9
 
 samenvatting[1] = (
 '''
@@ -682,8 +682,251 @@ Effect size (pdf p28)
 '''
 )
 
+samenvatting[6] = (
+'''
+Bivariate analysis:
+*******************
+QUANTITATIVE - QUANTITATIVE variate:
+------------------------------------
+
+Data Visualization (pdf p6):
+------------------
+Scatter plot:
+* X-axis: independent variable
+* Y-axis: dependent variable
+* Each point corresponds to an observation
+
+Linear Regression (pdf p8)
+-----------------
+With regression we will try to find a CONSISTENT and  SYSTEMATIC relationship between two QUANTITATIVE variables
+1.  Monotonic: consistent direction to the relationship between the two variables: 
+        INCREASING   <=>     DECREASING
+2.  Non-monotonic: value of dependent variable changes systematically with value of independent variable, but the direction is not consistent
+
+=> Linear regression = linear relationship between an independent and dependent variable
+
+Characteristics:
+    * Presence: is there a relationship?
+    * Direction: increasing or decreasing?
+    * Strength of the relationship: strong, moderate, weak, nonexistent,...
+
+Method of least squares (pdf p16)
+
+Covariance: (pdf p19)
+-----------
+= a measure that indicates whether a relationship between two variables is increasing or decreasing
+
+Cov(X, Y) = 1 /(n -1) * sum((x_i - _x)(y_i - _y))
+
+* Cov > 0: increasing
+* Cov +- 0: no relationship
+* Cov < 0: decreasing
+***NOTE: Covariance of population (denominator n) <=> sample (denominator n - 1)***
+
+Pearson's correlation coefficient (pdf p25)
+---------------------------------
+Pearson's product-moment correlation coefficient R is a measure for the strength of a linear correlation between x and y
+
+    Cov(X, Y)
+R = ---------
+    σ_x * σ_y
+
+R ∈ [-1, 1]
+
+Coefficient of determination (pdf p28)
+----------------------------
+= R²: explains the percentage of the variance of the observed values relative to the regression line
+
+R²: percentage variance observations explained by the regression line
+1 - R²: percentage variance observatoins NOT explained by regression
+
+Interpretation of R and R² values (pdf p29)
+---------------------------------
+
+    |---------------|--------------|------------------------|-------------------|
+    |   |R|         |   R²         |    Explained variance  |   Interpretation  |
+    |---------------|--------------|------------------------|-------------------|
+    |   < 0.3       |   < 0.1      |    < 10%               |   very weak       |
+    |   0.3 - 0.5   |   0.1 - 0.25 |    10 - 25%            |   weak            |
+    |   0.5 - 0.7   |   0.25 - 0.5 |    25 - 50%            |   moderate        |
+    |   0.7 - 0.85  |   0.5 - 0.75 |    50 - 75%            |   strong          |
+    |   0.85 - 0.95 |   0.75 - 0.9 |    75 - 90%            |   very strong     |
+    |   > 0.95      |   > 0.9      |    > 90%               |   exceptional(!)  |
+    |---------------|--------------|------------------------|-------------------|
+
+Considerations:
+    * The correlation coefficient only looks at the relationship between two variables. Interactions with other variables are not considered
+    * The correlation coefficient explicitly does not assume a causal relationship
+    * Pearson's correlation coefficient only expresses linear relationships
+'''
+)
+
+samenvatting[7] = (
+'''
+Time series and predictions (pdf p5)
+***************************
+Time series is a sequence of observations of some variable over time
+Many decisions in business operations depend on a forecast of some quantity
+
+Time series are a statistical problem: observations vary with time
+
+Time series components (pdf p8)
+----------------------
+* Level
+* Trend
+* Seasonal fluctuations
+* Cyclic patterns
+* Random noise (residuals)
+
+Time series models (pdf p10)
+------------------
+The simplest mathematical model:
+    X_t = b + epsilon_t                   (1)
+
+    * X_t = estimate for time series, at time t
+    * b = the level (a constant), based on observations x_t
+    * epsilon_t = random nois. We assume that epsilon_t +- Nor(µ = 0; sigma)
+
+We could also assume that there is a linear relationship:
+    X_t = b_0 + b_1 * t + epsilon_t       (2)
+
+    * b_0 = level
+    * b_1 = trend
+
+Equation 1 and 2 are special cases of the polynomial case:
+    X_t = b_0 + b_1 * t + b_2 * t² + ... + b_n * t ^ n + epsilon _t     (3)
+
+General expression time series: (pdf p13)
+    X_t = f(b_0, b_1, b_2, b_n, t) + epsilon_t                          (4)
+
+    Assumptions:
+    * Two components of variability:
+        1. the mean of the predictions changes with time
+        2. the variations to this mean vary randomly
+    * The residuals of the model (X_t - x_t) have a constant variance in time (homoscedastic)
+
+Estimating the parameters:  (pdf p14)
+    Make predictions based on the time series model:
+        1. select the most suitable model
+        2. estimation for parameters b_i(i: 1,..., n) based on observations
+    The estimations b_i are selected so that they approximate the observed values as close as possible
+
+Moving average (pdf p19)
+--------------
+= is a series of averages (means) of the last m observations
+
+    * Notation: SMA
+    * Hide short-term fluctuations and show long-term trends
+    * Parameter m is the time window
+
+    SMA(t) = sum(x_i / m) from i=k to t
+
+    with k = t - m + 1
+
+Weighted moving average (pdf p22)
+-----------------------
+    * For SMA, the weights of the observations are equal
+    * For a weighted moving average (WMA), more recent observations gain relatively more weight
+    * A specific form of this is single exponential smoothing or the
+      EXPONENTIAL MOVING AVERAGE (EMA)
+
+      X_t = alpha * x_t-1 + (1 - alpha) * X_t-1                   (6)
+
+      With alpha the smoothing constant (0 < alpha < 1), and t >=3
+
+      This is only valid from t = 3. So for value x_2 must choose suitable value:
+        * x_2 = x_1
+        * x_2 = 1/m sum(x_i) (so the mean of the first m observations)
+        * x_2 equal to a specific objective
+
+Exponential smoothing (pdf p26)
+---------------------
+Older observations have an exponentially smaller weight
+
+The speed at which the old observations are "forgotten" depends on the value of alpha.
+Alpha close to 1    =>  old observations are quickly forgotten
+Alpha close to 0    =>  old observations are take more time to ooze away
+
+Forecasting: (pdf p28)
+Forecast for time t + m (m time units in the "future") take always the last estimate of the level:
+    F(t + m) = X_t
+
+Double Exponential Smoothing (pdf p29)
+----------------------------
+Basic exponential smoothing does not work well if there is a trend in the data, the errors keep getting bigger
+=> add additional term to model the trend: b_t for the estimation of the trend at time t > 1:
+
+        X_t = alpha * x_t-1 + (1 - alpha) * (X_t-1 + b_t-1)
+        b_t = beta * (X_t - X_t-1) + (1 - beta) * b_t-1
+
+        with 0 < aplha < 1 and 0 < beta < 1
+        * b_t is an estimate for the slope of the trend line
+        * added to the first equation to ensure that the trend is followd
+        * X_t - X_t-1 is positive or negative, this corresponds to an increasing/decreasing trend
+
+        Options for selecting intial values:
+        * X_1 = x1
+        * b_1 = X_2 - x_1
+        * b_1 = 1/3 [(x_2 - x_1) + (x_1 - x_2) + (x_4 - x_3)]
+        * b_1 = (x_n - x_1) / (n - 1)
+
+Predicting (forecasting) (pdf p32)
+Forecast for time t + m:
+    F(t + m) = X_t + m * b_t
+
+Triple Exponential Smoothing (aka Holt-Winter's Method) (pdf p34)
+----------------------------
+If there is a recurring (seasonal) pattern
+
+Notation:
+    * L: length of the seasonal cycle (number of time units)
+    * c_t: term that models the seasonal variations
+    * gamma: smoothing factor for the seasonal variation
+
+    X_t = alpha * (X_t / C_t-L) + (1 - alpha)(X_t-1 + b_t-1)        Smoothing
+    b_t = beta * (X_t - X_t-1) + (1 - beta) * b_t-1                 Trend Smoothing
+    c_t = gamma * (x_t/X_t) + (1 - gamma) * c_t-L                   Seasonal Smoothing
+
+Prediction: (pdf p36)
+Prediction at time t + m:
+    F(t + m) = (X_t + m * b_t) * c_t-L+m
+
+Quality of a time series model (pdf p38)
+------------------------------
+Compare forecast results with actual observations, when they become available:
+    * Mean absolute error: MAE = 1 / m * sum(abs(x_i - F_i)) for i = t + 1 to t + m
+    * Mean squared error: MSE = 1 / m * sum((x_i - F_i)²) for i = t + 1 to t + m
+
+If square root of MSE is well below standard deviation over all observations, you have a good model!
+'''
+)
+
+samenvatting[8] = (
+'''
+H3:
+* Right or left tailed z-test: (oefening: confituurpotten; controleren van de instelling van de machine correct is)
+  t-test if sample is too small or standard deviation is unknown
+
+H4:
+* Chi²:
+    1. Chi² for independence: (oefening: antwoorden op enquête verschillende voor M als voor V)
+    2. Chi² goodness of fit: (oefening: komt de sample overeen met de theoretisch te verwachten waarde)
+
+H5:
+* two sample t-test
+    1. independent: reactiesnelheid na innemen van medicijn
+    2. paired: benzine met additieven
+
+H6:
+* regressie (flipperlenght ifv body mass) + CoV + R + R²
+
+H7:
+* time series
+'''
+)
+
 def help():
-    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH1()'}
+    commands = {'searchString(str)','overzichtHs()','printTheorie()','printH(hoofdstuk)','overzichtTs()'}
 
     for i in commands:
         print(i)
@@ -712,10 +955,10 @@ def printTheorie():
 
 #-------H1------
 
-def printH1():
+def printH(hoofdstuk):
     
-    print(samenvatting[1])
+    print(samenvatting[hoofdstuk])
 
-def printH2():
-    
-    print(samenvatting[2])
+def overzichtTs():
+    print(samenvatting[8])
+
