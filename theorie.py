@@ -515,7 +515,7 @@ Function to calculate X² and p-value from a contingency table:
 observed = pd.crosstab(index, columns)
 chi2, p, df, expected = stats.chi2_contingency(observed)
 
-Goodness-of-fit test
+Goodness-of-fit test (also chi-squared test)
 --------------------
 The X² test can also be used to determine whether a sample is representative for the population
 
