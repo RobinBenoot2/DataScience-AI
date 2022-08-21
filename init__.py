@@ -207,9 +207,9 @@ def twoTailedProbability(high, low, m, s):
 
 
 def getParams(source, percentage):
-    n = source.count()
-    m = source.mean()
-    s = source.std()
+    n = source.count()[0]
+    m = source.mean()[0]
+    s = source.std()[0]
     alpha = 1 - percentage / 100  # 1 - alpha is the confidence level
     return n, m, s, alpha
 
@@ -422,6 +422,7 @@ def cohen_d(a, b):
 def independent_Ttest(a, b):
     # Parameters a and b are the two groups to be compared.
     # alternative='less' indicates that we want to test for the alternative hypothesis that the mean of the control group is less than the mean of the treatment group.
+    # alternatives : 'greater' and 'two-sided'
     # Finally, by setting equal_var=False, it is not assumed that both groups have the same standard deviation.
     print(stats.ttest_ind(a=a, b=b, alternative='less', equal_var=False))
     return stats.ttest_ind(a=a, b=b, alternative='less', equal_var=False)
